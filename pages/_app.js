@@ -1,18 +1,27 @@
-import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { createGlobalStyle, ThemeProvider } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-  body {
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap");
+
+  * {
     margin: 0;
     padding: 0;
+    list-style: none;
+    text-decoration: none;
+    outline: none;
+  }
+
+  body {
+    font-family: 'Poppins';
     box-sizing: border-box;
   }
-`
+`;
 
 const theme = {
   colors: {
-    primary: '#0070f3',
+    primary: "#03cbef",
   },
-}
+};
 
 export default function App({ Component, pageProps }) {
   return (
@@ -22,5 +31,5 @@ export default function App({ Component, pageProps }) {
         <Component {...pageProps} />
       </ThemeProvider>
     </>
-  )
+  );
 }
