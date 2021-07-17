@@ -3,8 +3,21 @@ import styled from "styled-components";
 //icon
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faColumns } from "@fortawesome/free-solid-svg-icons";
-library.add()
+import {
+  faColumns,
+  faEye,
+  faFileSignature,
+  faBarcode,
+  faUserPlus,
+  faUser,
+  faCashRegister,
+  faPiggyBank,
+  faSignOutAlt,
+  faBars,
+  faGem,
+} from "@fortawesome/free-solid-svg-icons";
+import { faGoogleWallet } from "@fortawesome/free-brands-svg-icons";
+library.add();
 
 const ContentBox = styled.main`
   .sidebar {
@@ -30,7 +43,7 @@ const ContentBox = styled.main`
       a {
         padding-right: 1rem;
         display: block;
-        color: $white-color;
+        color: #fff;
         font-size: 1.1rem;
         white-space: nowrap;
 
@@ -41,9 +54,9 @@ const ContentBox = styled.main`
       }
 
       a.active {
-        background-color: $white-color;
+        background-color: #fff;
         padding: 0.75rem 0 0.75rem 1.5rem;
-        color: $main-color;
+        color: #0098a9;
         font-weight: lighter;
         border-radius: 30px 0 0 30px;
         transition: all 300ms ease-in-out;
@@ -55,20 +68,20 @@ const ContentBox = styled.main`
       bottom: 10px;
       left: 16px;
       border: none;
-      color: $white-color;
+      color: #fff;
       font-size: 1.35rem;
     }
   }
 
-  .nav-toggle {
+  #nav-toggle {
     display: none;
   }
 
-  .nav-toggle:checked ~ .main-content {
+  #nav-toggle:checked ~ .main-content {
     margin-left: 50px;
   }
 
-  .nav-toggle:checked + .sidebar {
+  #nav-toggle:checked + .sidebar {
     width: 50px;
 
     li {
@@ -160,13 +173,13 @@ const ContentBox = styled.main`
       .card-single {
         display: flex;
         justify-content: space-between;
-        background-color: $white-color;
+        background-color: #fff;
         width: 100%;
         padding: 2rem;
         border-radius: 7px;
 
         span {
-          color: $text-gray;
+          color: #777;
           font-size: 0.95rem;
         }
 
@@ -178,26 +191,26 @@ const ContentBox = styled.main`
 
         i {
           font-size: 2.5rem;
-          color: $main-color;
+          color: #0098a9;
         }
       }
 
       .card-single:last-child {
-        background-color: $main-color;
-        color: $white-color;
+        background-color: #0098a9;
+        color: #fff;
         border-radius: 15px;
 
         h1 {
-          color: $white-color;
+          color: #fff;
           font-weight: 400;
         }
 
         span {
-          color: $white-color;
+          color: #fff;
         }
 
         i {
-          color: $white-color;
+          color: #fff;
         }
       }
     }
@@ -207,37 +220,47 @@ const ContentBox = styled.main`
 export default function Dashboard() {
   return (
     <ContentBox>
-      <input type="checkbox" className="nav-toggle" />
+      <input type="checkbox" id="nav-toggle" />
       <div className="sidebar">
         <div className="sidebar-menu">
           <ul>
             <li>
               <a href="#" className="active">
-                <i className="fas fa-columns"><FontAwesomeIcon icon="hamburger" /></i>
+                <i className="fas fa-columns">
+                  <FontAwesomeIcon icon={faColumns} />
+                </i>
                 <span>Dashboard</span>
               </a>
             </li>
             <li>
               <a href="#">
-                <i className="fas fa-eye"></i>
+                <i className="fas fa-eye">
+                  <FontAwesomeIcon icon={faEye} />
+                </i>
                 <span>Ver produtos</span>
               </a>
             </li>
             <li>
               <a href="#">
-                <i className="fas fa-file-signature"></i>
+                <i className="fas fa-file-signature">
+                  <FontAwesomeIcon icon={faFileSignature} />
+                </i>
                 <span>Cadastrar produto</span>
               </a>
             </li>
             <li>
               <a href="#">
-                <i className="fas fa-barcode"></i>
+                <i className="fas fa-barcode">
+                  <FontAwesomeIcon icon={faBarcode} />
+                </i>
                 <span>Ver vendas</span>
               </a>
             </li>
             <li>
               <a href="#">
-                <i className="fas fa-user-plus"></i>
+                <i className="fas fa-user-plus">
+                  <FontAwesomeIcon icon={faUserPlus} />
+                </i>
                 <span>Adicionar usuario</span>
               </a>
             </li>
@@ -245,7 +268,9 @@ export default function Dashboard() {
         </div>
 
         <a href="#" className="sign-out-btn">
-          <i className="fas fa-sign-out-alt"></i>
+          <i className="fas fa-sign-out-alt">
+            <FontAwesomeIcon icon={faSignOutAlt} />
+          </i>
           <p>Sair</p>
         </a>
       </div>
@@ -254,58 +279,70 @@ export default function Dashboard() {
         <header>
           <h2>
             <label for="nav-toggle">
-              <i class="fas fa-bars"></i>
+              <i class="fas fa-bars">
+                <FontAwesomeIcon icon={faBars} />
+              </i>
             </label>
           </h2>
 
           <div class="user-wrapper">
             <h4>Carlos</h4>
             <div>
-              <i class="far fa-user"></i>
+              <i class="far fa-user">
+                <FontAwesomeIcon icon={faUser} />
+              </i>
             </div>
           </div>
         </header>
+        <main>
+          <div class="cards">
+            <div class="card-single">
+              <div>
+                <h1>28</h1>
+                <span>Produtos</span>
+              </div>
+              <div>
+                <i class="far fa-gem">
+                  <FontAwesomeIcon icon={faGem} />
+                </i>
+              </div>
+            </div>
+            <div class="card-single">
+              <div>
+                <h1>21</h1>
+                <span>Vendas</span>
+              </div>
+              <div>
+                <i class="fas fa-cash-register">
+                  <FontAwesomeIcon icon={faCashRegister} />
+                </i>
+              </div>
+            </div>
+            <div class="card-single">
+              <div>
+                <h1>R$4500</h1>
+                <span>Entrada</span>
+              </div>
+              <div>
+                <i class="fas fa-piggy-bank">
+                  <FontAwesomeIcon icon={faPiggyBank} />
+                </i>
+              </div>
+            </div>
+            <div class="card-single">
+              <div>
+                <h1>R$3700000</h1>
+                <span>Saldo</span>
+              </div>
+              <div>
+                <i class="fab fa-google-wallet">
+                  <FontAwesomeIcon icon={faGoogleWallet} />
+                </i>
+              </div>
+            </div>
+          </div>
+        </main>
       </div>
-      <main>
-        <div class="cards">
-          <div class="card-single">
-            <div>
-              <h1>28</h1>
-              <span>Produtos</span>
-            </div>
-            <div>
-              <i class="far fa-gem"></i>
-            </div>
-          </div>
-          <div class="card-single">
-            <div>
-              <h1>21</h1>
-              <span>Vendas</span>
-            </div>
-            <div>
-              <i class="fas fa-cash-register"></i>
-            </div>
-          </div>
-          <div class="card-single">
-            <div>
-              <h1>R$4500</h1>
-              <span>Entrada</span>
-            </div>
-            <div>
-              <i class="fas fa-piggy-bank"></i>
-            </div>
-          </div>
-          <div class="card-single">
-            <div>
-              <h1>R$3700000</h1>
-              <span>Saldo</span>
-            </div>
-            <div>
-              <i class="fab fa-google-wallet"></i>
-            </div>
-          </div>
-        </div>
-      </main>
     </ContentBox>
   );
 }
