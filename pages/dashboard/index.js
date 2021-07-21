@@ -1,12 +1,10 @@
-import styled from "styled-components";
-
 // Components
-import { Sidebar } from "./../src/components/Sidebar";
-import { DashboardHeader } from "./../src/components/DashboardHeader";
-import { Card } from "./../src/components/Card";
-import DashboardContentBox from "./../src/components/DashboardContentBox";
+import { Sidebar } from "./../../src/components/Sidebar";
+import { DashboardHeader } from "./../../src/components/DashboardHeader";
+import { Card } from "./../../src/components/Card";
+import DashboardContentBox from "./../../src/components/DashboardContentBox";
 
-//icon
+// icons
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faCashRegister,
@@ -16,15 +14,13 @@ import {
 import { faGoogleWallet } from "@fortawesome/free-brands-svg-icons";
 library.add();
 
-
-
 export default function Dashboard() {
   return (
     <DashboardContentBox>
       <Sidebar />
 
       <div class="main-content">
-        <DashboardHeader name='Carlos Henrique' />
+        <DashboardHeader name="Carlos Henrique" />
         <main>
           <div class="cards">
             <Card amount="28" name="Produtos" icon={faGem} />
