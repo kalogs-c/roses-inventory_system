@@ -6,11 +6,14 @@ export function SidebarMenuItem(props) {
 
   return (
     <>
-      <li>
-        <a
-          href={props.goTo}
-          className={router.pathname === props.goTo ? "active" : ""}
-        >
+      <li
+        style={{ cursor: "pointer" }}
+        onClick={(event) => {
+          event.preventDefault();
+          router.push(props.goTo);
+        }}
+      >
+        <a className={router.pathname === props.goTo ? "active" : ""}>
           <i>
             <FontAwesomeIcon icon={props.icon} />
           </i>

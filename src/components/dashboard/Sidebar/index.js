@@ -1,3 +1,6 @@
+import React from "react";
+
+// icons
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -16,28 +19,36 @@ import { SidebarMenuItem } from "./SidebarMenuItem";
 export function Sidebar() {
   return (
     <>
-      <input type="checkbox" id="nav-toggle" />
+      <input
+        checked="false"
+        type="checkbox"
+        id="nav-toggle"
+      />
       <div className="sidebar">
         <div className="sidebar-menu">
           <ul>
-            <SidebarMenuItem goTo="/" icon={faColumns} name="Dashboard" />
             <SidebarMenuItem
-              goTo="/viewProducts"
+              goTo="/dashboard"
+              icon={faColumns}
+              name="Dashboard"
+            />
+            <SidebarMenuItem
+              goTo="/dashboard/viewProducts"
               icon={faEye}
               name="Ver produtos"
             />
             <SidebarMenuItem
-              goTo="/addProduct"
+              goTo="/dashboard/addProduct"
               icon={faFileSignature}
               name="Cadastrar produto"
             />
             <SidebarMenuItem
-              goTo="/seeSells"
+              goTo="/dashboard/seeSells"
               icon={faBarcode}
               name="Ver vendas"
             />
             <SidebarMenuItem
-              goTo="/viewUsers"
+              goTo="/dashboard/viewUsers"
               icon={faUserPlus}
               name="Adicionar usuario"
             />

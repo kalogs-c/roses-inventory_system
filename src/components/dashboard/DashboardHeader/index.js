@@ -1,3 +1,5 @@
+import React from "react";
+
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,7 +12,7 @@ export function DashboardHeader(props) {
   return (
     <header>
       <h2>
-        <label for="nav-toggle">
+        <label  for="nav-toggle">
           <i class="fas fa-bars">
             <FontAwesomeIcon icon={faBars} />
           </i>

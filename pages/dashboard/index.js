@@ -1,8 +1,8 @@
 // Components
-import { Sidebar } from "./../../src/components/Sidebar";
-import { DashboardHeader } from "./../../src/components/DashboardHeader";
-import { Card } from "./../../src/components/Card";
-import DashboardContentBox from "./../../src/components/DashboardContentBox";
+import { Sidebar } from "./../../src/components/dashboard/Sidebar";
+import { DashboardHeader } from "./../../src/components/dashboard/DashboardHeader";
+import { Card } from "./../../src/components/dashboard/Card";
+import DashboardContentBox from "./../../src/components/dashboard/DashboardContentBox";
 
 // icons
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -19,10 +19,10 @@ export default function Dashboard() {
     <DashboardContentBox>
       <Sidebar />
 
-      <div class="main-content">
+      <div className="main-content">
         <DashboardHeader name="Carlos Henrique" />
         <main>
-          <div class="cards">
+          <div className="cards">
             <Card amount="28" name="Produtos" icon={faGem} />
             <Card amount="21" name="Vendas" icon={faCashRegister} />
             <Card amount="R$4500" name="Entrada" icon={faPiggyBank} />

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const DashboardContentBox = styled.main`
   .sidebar {
-    width: 300px;
+    width: 230px;
     position: fixed;
     left: 0;
     top: 0;
@@ -27,6 +27,12 @@ const DashboardContentBox = styled.main`
         color: #fff;
         font-size: 1.1rem;
         white-space: nowrap;
+        transition: all 300ms ease-in-out;
+
+        &:hover {
+          padding: 0 0 0 0.5rem;
+          font-weight: lighter;
+        }
 
         i {
           font-size: 1rem;
@@ -40,7 +46,6 @@ const DashboardContentBox = styled.main`
         color: #0098a9;
         font-weight: lighter;
         border-radius: 30px 0 0 30px;
-        transition: all 300ms ease-in-out;
       }
     }
 
@@ -97,7 +102,7 @@ const DashboardContentBox = styled.main`
   }
 
   .main-content {
-    margin-left: 300px;
+    margin-left: 230px;
     transition: margin-left 300ms ease-in-out;
 
     header {
@@ -198,4 +203,4 @@ const DashboardContentBox = styled.main`
   }
 `;
 
-export default DashboardContentBox
+export default DashboardContentBox;
