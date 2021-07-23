@@ -6,11 +6,14 @@ import {
   faBars,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import { Header } from "./styles";
 library.add();
+
+
 
 export function DashboardHeader(props) {
   return (
-    <header>
+    <Header>
       <h2>
         <label  for="nav-toggle">
           <i class="fas fa-bars">
@@ -27,6 +30,6 @@ export function DashboardHeader(props) {
           </i>
         </div>
       </div>
-    </header>
+    </Header>
   );
 }

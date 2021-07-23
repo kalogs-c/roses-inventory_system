@@ -33,14 +33,9 @@ export function Sidebar() {
               name="Dashboard"
             />
             <SidebarMenuItem
-              goTo="/dashboard/viewProducts"
+              goTo="/dashboard/products"
               icon={faEye}
-              name="Ver produtos"
-            />
-            <SidebarMenuItem
-              goTo="/dashboard/addProduct"
-              icon={faFileSignature}
-              name="Cadastrar produto"
+              name="Produtos"
             />
             <SidebarMenuItem
               goTo="/dashboard/seeSells"
@@ -48,9 +43,9 @@ export function Sidebar() {
               name="Ver vendas"
             />
             <SidebarMenuItem
-              goTo="/dashboard/viewUsers"
+              goTo="/dashboard/users"
               icon={faUserPlus}
-              name="Adicionar usuario"
+              name="Usuarios"
             />
           </ul>
         </div>

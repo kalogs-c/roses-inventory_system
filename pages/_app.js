@@ -8,7 +8,7 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     outline: none;
     font-family: Helvetica;
-    font-style: lighter;
+    font-weight: lighter;
   }
 
   body {
