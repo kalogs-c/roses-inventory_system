@@ -20,7 +20,7 @@ export function Sidebar() {
   return (
     <>
       <input
-        checked="false"
+        defaultChecked={true}
         type="checkbox"
         id="nav-toggle"
       />

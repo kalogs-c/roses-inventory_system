@@ -16,10 +16,20 @@ export default function viewUsers() {
             <ContentHeader title='Usuarios' />
 
             <div>
-              <div>
+              <div className="tableHeader">
                 <input type="checkbox" />
-                
+                <a>Nome</a>
+                <a>Ultima atualização</a>                
               </div>
+              <ul>
+                <li>
+                  <input type="checkbox" />
+                  <a>
+                    <p>Nome  do item</p>
+                    <p>21 de jul, 18:53</p>
+                  </a>
+                </li>
+              </ul>
             </div>
           </main>
         </div>
