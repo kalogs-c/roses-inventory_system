@@ -13,16 +13,36 @@ export default function Home() {
         <h1>Login</h1>
 
         <div className="form-div">
-          <form action="" method="POST">
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+
+              fetch("api/login", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ githubUser: githubUser }),
+              }).then(async (response) => {
+                const resposta = await response.json();
+                const token = resposta.token;
+                nookies.set(null, "USER_TOKEN", token, {
+                  path: "/",
+                  maxAge: 86400 * 7,
+                });
+                router.push("/");
+              });
+            }}
+          >
             <input
               type="text"
-              autocomplete="off"
+              autoComplete="off"
               placeholder="Usuario"
               name="username"
             />
             <input
               type="password"
-              autocomplete="off"
+              autoComplete="off"
               placeholder="Senha"
               name="password"
             />
@@ -33,4 +53,10 @@ export default function Home() {
       <img className="wave" src="https://svgshare.com/i/ZHC.svg" title="" />
     </Main>
   );
+}
+
+export async function getStaticProps(context) {
+  return {
+    props: {}, // will be passed to the page component as props
+  };
 }

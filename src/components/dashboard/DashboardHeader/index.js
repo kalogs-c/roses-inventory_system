@@ -11,7 +11,7 @@ export function DashboardHeader(props) {
     <Header>
       <h2>
         <label htmlFor="nav-toggle">
-          <i class="fas fa-bars">
+          <i>
             <FontAwesomeIcon icon={faBars} />
           </i>
         </label>
