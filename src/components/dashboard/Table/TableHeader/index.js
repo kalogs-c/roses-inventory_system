@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const TableHeader = styled.div`
+const Header = styled.div`
   background-color: transparent;
   font-size: 14px;
   font-size: 0.875rem;
@@ -8,6 +8,12 @@ const TableHeader = styled.div`
   flex: 1;
   display: flex;
   justify-content: space-between;
+  padding: 10px;
+
+  div {
+    display: flex;
+    gap: 15px;
+  }
 
   * {
     color: #848484;
@@ -16,10 +22,12 @@ const TableHeader = styled.div`
 
 export function TableHeader() {
   return (
-    <TableHeader>
-      <input type="checkbox" defaultChecked={true}/>
-      <a>Nome</a>
+    <Header>
+      <div>
+        <input type="checkbox" defaultChecked={false} />
+        <a>Nome</a>
+      </div>
       <a>Ultima atualização</a>
-    </TableHeader>
+    </Header>
   );
 }

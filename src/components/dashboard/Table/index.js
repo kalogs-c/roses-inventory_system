@@ -1,18 +1,15 @@
+// Component
 import { TableHeader } from "./TableHeader";
+import { TableContent } from "./TableContent";
+import TableLI from "./TableLI";
 
 export default function Table() {
   return (
-    <div>
+    <div style={{padding: 20}}>
       <TableHeader />
-      <ul>
-        <li>
-          <input type="checkbox" />
-          <a>
-            <p>Nome do item</p>
-            <p>21 de jul, 18:53</p>
-          </a>
-        </li>
-      </ul>
+      <TableContent>
+        <TableLI name="Nome" date="28 de jul, 2019" />
+      </TableContent>
     </div>
   );
 }

@@ -26,13 +26,6 @@ export const Header = styled.header`
     align-items: center;
     gap: 10px;
 
-    div {
-      border: none;
-      background-color: #f6f6f6;
-      padding: 5px 6.5px 3px 6.5px;
-      border-radius: 50%;
-    }
-
     i {
       font-size: 1.5rem;
     }

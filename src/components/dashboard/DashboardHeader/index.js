@@ -2,20 +2,15 @@ import React from "react";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBars,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBars, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Header } from "./styles";
 library.add();
-
-
 
 export function DashboardHeader(props) {
   return (
     <Header>
       <h2>
-        <label  for="nav-toggle">
+        <label htmlFor="nav-toggle">
           <i class="fas fa-bars">
             <FontAwesomeIcon icon={faBars} />
           </i>
@@ -24,11 +19,9 @@ export function DashboardHeader(props) {
 
       <div class="user-wrapper">
         <h4>{props.name}</h4>
-        <div>
-          <i class="far fa-user">
-            <FontAwesomeIcon icon={faUser} />
-          </i>
-        </div>
+        <i class="far fa-user">
+          <FontAwesomeIcon icon={faUser} />
+        </i>
       </div>
     </Header>
   );
