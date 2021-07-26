@@ -40,6 +40,7 @@ export const Header = styled.header`
       border-radius: 7px;
       color: #fff;
       display: flex;
+      align-items: center;
       gap: 10px;
       transition: all 0.2s ease-in-out;
 

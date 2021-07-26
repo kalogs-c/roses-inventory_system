@@ -1,7 +1,10 @@
+import { useRouter } from "next/router";
+
 //Components
 import Main from "./../src/components/Main";
 
 export default function Home() {
+  const router = useRouter();
   return (
     <Main>
       <img
@@ -13,7 +16,12 @@ export default function Home() {
         <h1>Login</h1>
 
         <div className="form-div">
-          <form >
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              router.push("/dashboard");
+            }}
+          >
             <input
               type="text"
               autoComplete="off"

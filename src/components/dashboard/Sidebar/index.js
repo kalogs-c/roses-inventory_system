@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/router";
 
 // icons
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -6,7 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faColumns,
   faEye,
-  faFileSignature,
   faBarcode,
   faUserPlus,
   faSignOutAlt,
@@ -17,13 +17,10 @@ library.add();
 import { SidebarMenuItem } from "./SidebarMenuItem";
 
 export function Sidebar() {
+  const router = useRouter();
   return (
     <>
-      <input
-        defaultChecked={true}
-        type="checkbox"
-        id="nav-toggle"
-      />
+      <input defaultChecked={true} type="checkbox" id="nav-toggle" />
       <div className="sidebar">
         <div className="sidebar-menu">
           <ul>
@@ -50,7 +47,14 @@ export function Sidebar() {
           </ul>
         </div>
 
-        <a href="#" className="sign-out-btn">
+        <a
+          onClick={(event) => {
+            event.preventDefault();
+            router.push("/");
+          }}
+          className="sign-out-btn"
+          style={{ cursor: "pointer" }}
+        >
           <i>
             <FontAwesomeIcon icon={faSignOutAlt} />
           </i>
