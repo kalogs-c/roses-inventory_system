@@ -13,27 +13,7 @@ export default function Home() {
         <h1>Login</h1>
 
         <div className="form-div">
-          <form
-            onSubmit={(event) => {
-              event.preventDefault();
-
-              fetch("api/login", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ githubUser: githubUser }),
-              }).then(async (response) => {
-                const resposta = await response.json();
-                const token = resposta.token;
-                nookies.set(null, "USER_TOKEN", token, {
-                  path: "/",
-                  maxAge: 86400 * 7,
-                });
-                router.push("/");
-              });
-            }}
-          >
+          <form >
             <input
               type="text"
               autoComplete="off"
