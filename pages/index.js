@@ -19,14 +19,28 @@ export default function Home() {
           <form
             onSubmit={(event) => {
               event.preventDefault();
-              router.push("/dashboard");
+              const dataForm = new FormData(event.target)
+              const userData = {
+                login: dataForm.get('login'),
+                password: dataForm.get('password')
+              }
+
+              fetch('api/login', {
+                method: 'POST',
+                body: JSON.stringify(userData)
+              }).then(async (response) => {
+                if (response.status === 200) {
+                  router.push('/dashboard')
+                }
+              })
+              // router.push("/dashboard");
             }}
           >
             <input
               type="text"
               autoComplete="off"
               placeholder="Usuario"
-              name="username"
+              name="login"
             />
             <input
               type="password"
