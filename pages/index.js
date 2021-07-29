@@ -25,10 +25,8 @@ export default function Home() {
                 password: dataForm.get('password')
               }
 
-              fetch('api/login', {
-                method: 'POST',
-                body: JSON.stringify(userData)
-              }).then(async (response) => {
+              fetch('api/user').then(async (response) => {
+                
                 if (response.status === 200) {
                   router.push('/dashboard')
                 }
