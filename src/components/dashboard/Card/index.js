@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export function Card(props) {
   return (
     <>
-      <div class="card-single">
+      <div className="card-single">
         <div>
           <h1>{props.amount}</h1>
           <span>{props.name}</span>
