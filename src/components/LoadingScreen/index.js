@@ -3,11 +3,6 @@ import styled from "styled-components";
 const Screen = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color: transparent;
-
-  body {
-    filter: blur(50px)
-  }
 
   .wrapper {
     position: absolute;

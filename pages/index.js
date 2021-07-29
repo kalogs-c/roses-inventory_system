@@ -13,8 +13,8 @@ export default function Home() {
 
   return (
     <>
+      {loading === false ? (
         <Main>
-          {loading === false ? ("") : (<LoadingScreen />)}
           <img
             className="logo"
             src="https://i.ibb.co/GkDhYF0/logo-nobg.png"
@@ -27,7 +27,7 @@ export default function Home() {
               <form
                 onSubmit={(event) => {
                   event.preventDefault();
-                  setLoading(true)
+                  setLoading(true);
                   const dataForm = new FormData(event.target);
                   const userData = {
                     login: dataForm.get("login"),
@@ -71,6 +71,9 @@ export default function Home() {
           </div>
           <img className="wave" src="https://svgshare.com/i/ZHC.svg" title="" />
         </Main>
+      ) : (
+        <LoadingScreen />
+      )}
     </>
   );
 }
