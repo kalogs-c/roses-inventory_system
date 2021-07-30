@@ -1,14 +1,19 @@
 import connect from "../../utils/database";
+import { compare } from "bcrypt";
 
 export default async (req, res) => {
   if (req.method === "POST") {
     const { db } = await connect();
 
-    const response = await db.collection("users").findOne({
-      $and: [{ login: req.body.login }, { password: req.body.password }],
-    });
+    const response = await db
+      .collection("users")
+      .findOne({ login: req.body.login });
 
-    if (response) {
+    if (!response) return;
+
+    const comparePassword = await compare(req.body.password, response.password);
+
+    if (comparePassword) {
       res.status(200).json({ message: "Success" });
       return;
     }

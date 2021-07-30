@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React from "react";
+import { useState } from "react";
 
 //Components
 import Main from "./../src/components/Main";
@@ -8,8 +8,8 @@ import LoadingScreen from "../src/components/LoadingScreen";
 
 export default function Home() {
   const router = useRouter();
-  const [loginResponse, setLoginResponse] = React.useState();
-  const [loading, setLoading] = React.useState(false);
+  const [loginResponse, setLoginResponse] = useState();
+  const [loading, setLoading] = useState(false);
 
   return (
     <>
@@ -34,7 +34,7 @@ export default function Home() {
                     password: dataForm.get("password"),
                   };
 
-                  fetch("api/login", {
+                  fetch("api/createUser", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(userData),

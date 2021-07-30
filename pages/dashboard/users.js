@@ -14,7 +14,7 @@ export default function viewUsers() {
         <div className="main-content">
           <DashboardHeader name="Carlos Henrique" />
           <main>
-            <ContentHeader title='Usuarios' />
+            <ContentHeader title='Usuarios' reference="users" />
             <Table />
           </main>
         </div>

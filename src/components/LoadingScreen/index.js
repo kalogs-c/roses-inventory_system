@@ -6,7 +6,9 @@ const Screen = styled.div`
 
   .wrapper {
     position: absolute;
-    top: 50%;
+    display: flex;
+    gap: 5px;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
   }

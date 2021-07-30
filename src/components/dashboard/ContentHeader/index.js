@@ -1,5 +1,8 @@
 import { Header } from "./styles";
 
+// Components
+import AddButton from "./AddButton"
+
 // icons
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -18,11 +21,11 @@ export default function ContentHeader(props) {
           </div>
         </div>
         <div className="addDiv">
-          <span>2 registros</span>
-          <a>
+          <span>{props.registers} registros</span>
+          <AddButton reference={props.reference} >
             <FontAwesomeIcon icon={faPlus} />
             Novo registro
-          </a>
+          </AddButton>
         </div>
       </Header>
     </>
