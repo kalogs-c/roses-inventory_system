@@ -3,13 +3,14 @@ import connect from "../../utils/database";
 export default async (req, res) => {
   if(req.method === 'POST') {
     const { db } = await connect();
-  
+
+    const date = new Date
     const response = await db.collection("users").insertOne({
-      name: "Carlos",
-      lastName: "Henrique",
+      name: req.body.name,
+      lastName: req.body.lastName,
       login: req.body.login,
       password: req.body.password,
-      created: Date.now
+      created: data.toLocaleDateString("BR")
     });
   
     res.status(200).json(response);

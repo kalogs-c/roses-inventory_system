@@ -42,6 +42,7 @@ export const Header = styled.header`
       display: flex;
       align-items: center;
       gap: 10px;
+      cursor: pointer;
       transition: all 0.2s ease-in-out;
 
       &:hover {
