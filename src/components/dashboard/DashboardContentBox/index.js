@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const DashboardContentBox = styled.main`
+  height: 100%;
   .sidebar {
     width: 230px;
     position: fixed;
@@ -103,13 +104,13 @@ const DashboardContentBox = styled.main`
 
   .main-content {
     margin-left: 230px;
+    height: 100%;
     transition: margin-left 300ms ease-in-out;
   }
 
   main {
     padding: 1.5rem 0.75rem;
-    background-color: rgba(241, 245, 249, 0.75);
-    height: calc(100vh - 65px);
+    height: 100%;
 
     .cards {
       display: flex;

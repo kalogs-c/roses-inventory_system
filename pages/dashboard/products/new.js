@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
-import { Sidebar } from "./../../src/components/dashboard/Sidebar";
-import { DashboardHeader } from "./../../src/components/dashboard/DashboardHeader";
-import DashboardContentBox from "./../../src/components/dashboard/DashboardContentBox";
+import { useRouter } from "next/router";
+
+import { Sidebar } from "../../../src/components/dashboard/Sidebar";
+import { DashboardHeader } from "../../../src/components/dashboard/DashboardHeader";
+import DashboardContentBox from "../../../src/components/dashboard/DashboardContentBox";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
@@ -36,12 +38,14 @@ const Button = styled.button`
 `;
 
 export default function AddItem(props) {
+  const router = useRouter();
+  const id = router.query.id;
   return (
     <DashboardContentBox style={{ maxHeight: "100vh", overflow: "hidden" }}>
       <Sidebar />
 
       <div className="main-content">
-        <DashboardHeader name="Carlos Henrique" />
+        <DashboardHeader name={"Carlos Henrique"} />
         <main>
           <Header>
             <button

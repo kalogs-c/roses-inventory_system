@@ -6,13 +6,22 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     list-style: none;
     text-decoration: none;
+    box-sizing: border-box;
     outline: none;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: lighter;
   }
 
+  html {
+    height: 100%;
+    background-color: rgba(241, 245, 249, 0.75);
+  }
+
   body {
-    box-sizing: border-box;
+    height: 100%;
+    #__next {
+      height: 100%;
+    }
   }
 `;
 

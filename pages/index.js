@@ -34,7 +34,7 @@ export default function Home() {
                     password: dataForm.get("password"),
                   };
 
-                  fetch("api/createUser", {
+                  fetch("api/login", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(userData),

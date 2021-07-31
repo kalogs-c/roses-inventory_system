@@ -32,7 +32,7 @@ export default function Dashboard() {
             style={{
               display: "flex",
               flexDirection: "column",
-              height: "60%",
+              height: "70%",
               justifyContent: "center",
               alignItems: "center",
             }}
