@@ -1,3 +1,6 @@
+import nookies from "nookies";
+import jwt from "jsonwebtoken";
+
 // Components
 import { Sidebar } from "./../../src/components/dashboard/Sidebar";
 import { DashboardHeader } from "./../../src/components/dashboard/DashboardHeader";
@@ -14,13 +17,14 @@ import {
 import { faGoogleWallet } from "@fortawesome/free-brands-svg-icons";
 library.add();
 
-export default function Dashboard() {
+export default function Dashboard(props) {
+  
   return (
     <DashboardContentBox style={{ maxHeight: "100vh", overflow: "hidden" }}>
       <Sidebar />
 
       <div className="main-content">
-        <DashboardHeader name="Carlos Henrique" />
+        <DashboardHeader />
         <main>
           <div className="cards">
             <Card amount="28" name="Produtos" icon={faGem} />
@@ -58,6 +62,7 @@ export default function Dashboard() {
             >
               Por favor, selecione o conteúdo que gostaria de editar na barra
               lateral esquerda
+              
             </span>
           </div>
         </main>
@@ -65,3 +70,4 @@ export default function Dashboard() {
     </DashboardContentBox>
   );
 }
+

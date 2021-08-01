@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
+import nookies from "nookies";
 
 //Components
 import Main from "./../src/components/Main";
@@ -40,6 +41,13 @@ export default function Home() {
                     body: JSON.stringify(userData),
                   }).then(async (response) => {
                     if ((await response.status) === 200) {
+                      const res = await response.json();
+                      const userName = res.name + " " + res.lastName
+                      const token = res.TOKEN
+                      nookies.set(null, 'USER_TOKEN', token, {
+                        'path': '/',
+                        'maxAge': 84600
+                      })
                       router.push("/dashboard");
                       return;
                     }

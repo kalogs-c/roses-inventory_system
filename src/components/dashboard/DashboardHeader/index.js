@@ -18,7 +18,7 @@ export function DashboardHeader(props) {
       </h2>
 
       <div className="user-wrapper">
-        <h4>{props.name}</h4>
+        <h4>{props.userName}</h4>
         <i className="far fa-user">
           <FontAwesomeIcon icon={faUser} />
         </i>
@@ -26,3 +26,4 @@ export function DashboardHeader(props) {
     </Header>
   );
 }
+
