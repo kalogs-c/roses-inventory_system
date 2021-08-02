@@ -8,19 +8,22 @@ import { Sidebar } from "../../../src/components/dashboard/Sidebar";
 import { DashboardHeader } from "../../../src/components/dashboard/DashboardHeader";
 import DashboardContentBox from "../../../src/components/dashboard/DashboardContentBox";
 import ContentHeader from "../../../src/components/dashboard/ContentHeader";
-import Table from "../../../src/components/dashboard/Table";
+import { TableContent } from "../../../src/components/dashboard/Table/TableContent";
+import { TableHeader } from "../../../src/components/dashboard/Table/TableHeader";
+import { Li } from "../../../src/components/dashboard/Table/TableLI";
+import LoadingScreen from "../../../src/components/LoadingScreen";
 
 export default function viewUsers(props) {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  fetch("http://localhost:3000/api/users/getUsers", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }).then(async (response) => {
-    setUsers(await response.json());
-  });
+  useEffect(() => {
+    fetch("../../api/users/getUsersList").then(async (response) => {
+      const data = await response.json();
+      setUsers(data.users);
+      setLoading(false);
+    });
+  }, []);
 
   return (
     <>
@@ -30,8 +33,33 @@ export default function viewUsers(props) {
         <div className="main-content">
           <DashboardHeader userName={props.userName} />
           <main>
-            <ContentHeader title="Usuarios" reference="users" />
-            <Table items={users} />
+            {loading === true ? (
+              <LoadingScreen />
+            ) : (
+              <>
+                <ContentHeader
+                  title="Usuarios"
+                  reference="users"
+                  registers={users.length}
+                />
+                <div style={{ padding: 20 }}>
+                  <TableHeader />
+                  <TableContent>
+                    {users.map((item) => {
+                      return (
+                        <Li key={item._id}>
+                          <input type="checkbox" />
+                          <a href={`users/${item._id}`}>
+                            <p>{`${item.name} ${item.lastName}`}</p>
+                            <p>{item.created}</p>
+                          </a>
+                        </Li>
+                      );
+                    })}
+                  </TableContent>
+                </div>
+              </>
+            )}
           </main>
         </div>
       </DashboardContentBox>

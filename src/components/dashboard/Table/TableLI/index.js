@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
-const Li = styled.li`
+export const Li = styled.li`
   display: flex;
   gap: 15px;
   flex: 1;
   border-bottom: 1px solid #f0f0f0;
+  align-items: center;
   padding: 10px;
   text-decoration: none;
   min-width: 0;
@@ -20,17 +21,3 @@ const Li = styled.li`
     justify-content: space-between;
   }
 `;
-
-export default function TableLI(props) {
-  return (
-    <>
-      <Li>
-        <input type="checkbox" />
-        <a href={props.href}>
-          <p>{props.name}</p>
-          <p>{props.date}</p>
-        </a>
-      </Li>
-    </>
-  );
-}

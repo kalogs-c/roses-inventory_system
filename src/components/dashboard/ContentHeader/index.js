@@ -21,7 +21,7 @@ export default function ContentHeader(props) {
           </div>
         </div>
         <div className="addDiv">
-          <span>{props.registers} registros</span>
+          <span>{props.registers} Registros</span>
           <AddButton reference={props.reference} >
             <FontAwesomeIcon icon={faPlus} />
             Novo registro

@@ -9,7 +9,12 @@ import { Sidebar } from "../../../src/components/dashboard/Sidebar";
 import { DashboardHeader } from "../../../src/components/dashboard/DashboardHeader";
 import DashboardContentBox from "../../../src/components/dashboard/DashboardContentBox";
 import AddItemDataField from "../../../src/components/dashboard/AddItemDataField";
-import { Header, Button, Form, Message } from "./../../../src/components/new/styles";
+import {
+  Header,
+  Button,
+  Form,
+  Message,
+} from "./../../../src/components/new/styles";
 import LoadingScreen from "../../../src/components/LoadingScreen";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -104,6 +109,8 @@ export default function AddItem(props) {
                 onSubmit={(event) => {
                   event.preventDefault();
                   setLoading(true);
+                  setCreatedUser(false);
+                  setErrorCreate("");
                   const dataForm = new FormData(event.target);
                   const userData = {
                     name: dataForm.get("name"),
