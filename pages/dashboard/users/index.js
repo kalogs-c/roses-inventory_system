@@ -16,7 +16,7 @@ export default function viewUsers(props) {
   fetch("http://localhost:3000/api/users/getUsers", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
   }).then(async (response) => {
     setUsers(await response.json());

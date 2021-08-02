@@ -5,12 +5,12 @@ import nookies from "nookies";
 import jwt from "jsonwebtoken";
 
 // Components
-import { Sidebar } from "./../../../../src/components/dashboard/Sidebar";
-import { DashboardHeader } from "./../../../../src/components/dashboard/DashboardHeader";
-import DashboardContentBox from "./../../../../src/components/dashboard/DashboardContentBox";
-import AddItemDataField from "./../../../../src/components/dashboard/AddItemDataField";
-import { Header, Button, Form, Message } from "./styles";
-import LoadingScreen from "./../../../../src/components/LoadingScreen";
+import { Sidebar } from "../../../src/components/dashboard/Sidebar";
+import { DashboardHeader } from "../../../src/components/dashboard/DashboardHeader";
+import DashboardContentBox from "../../../src/components/dashboard/DashboardContentBox";
+import AddItemDataField from "../../../src/components/dashboard/AddItemDataField";
+import { Header, Button, Form, Message } from "./../../../src/components/new/styles";
+import LoadingScreen from "../../../src/components/LoadingScreen";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";

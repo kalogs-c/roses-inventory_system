@@ -4,11 +4,12 @@ import { TableContent } from "./TableContent";
 import TableLI from "./TableLI";
 
 export default function Table({ items }) {
+  const itemsArray = []
   return (
     <div style={{ padding: 20 }}>
       <TableHeader />
       <TableContent>
-        {items.map((item) => {
+        {itemsArray.map((item) => {
           return (
             <TableLI key={item.__id} name={item.name} date={item.created} />
           );
