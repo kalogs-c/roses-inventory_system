@@ -27,10 +27,49 @@ export const Button = styled.label`
 `;
 
 export const Form = styled.form`
-  padding: 3rem;
+  padding: 20px 3rem;
   display: flex;
   flex-direction: column;
   gap: 15px;
   flex: 1;
   height: 100%;
 `;
+
+export const Message = styled.div`
+  padding: 20px 0 0 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  button {
+    border-radius: 50px;
+    width: 45px;
+    border: none;
+    background-color: #ACD8AA;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .negative-button {
+    background-color: #F48498;
+  }
+
+  p {
+    width: max-content;
+    padding: 10px;
+  }
+
+  .positive {
+    border: 1px solid #ACD8AA;
+    border-radius: 4px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.04);
+  }
+
+  .negative {
+    border: 1px solid #F48498;
+    border-radius: 4px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.04);
+  }
+`

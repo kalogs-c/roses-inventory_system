@@ -20,9 +20,8 @@ export default async (req, res) => {
     });
 
     const comparePassword = await compare(req.body.password, response.password);
-    const { name, lastName } = response;
     if (comparePassword) {
-      res.status(200).json({TOKEN, name, lastName});
+      res.status(200).json({TOKEN});
       return;
     }
 

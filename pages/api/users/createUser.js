@@ -1,4 +1,4 @@
-import connect from "../../utils/database";
+import connect from "../../../utils/database";
 import { hash } from "bcrypt";
 
 export default async (req, res) => {
@@ -15,12 +15,13 @@ export default async (req, res) => {
       return;
     }
 
-    const response = await cachedDb.collection("users").insertOne({
+    await cachedDb.collection("users").insertOne({
       name: req.body.name,
       lastName: req.body.lastName,
       login: req.body.login,
       password: await hash(req.body.password, 10),
       created: date.toLocaleDateString("BR"),
+      createdBy: req.body.createdBy
     });
 
     res.status(200).json({ message: "Usuario criado com sucesso" });

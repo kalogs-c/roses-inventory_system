@@ -42,7 +42,6 @@ export default function Home() {
                   }).then(async (response) => {
                     if ((await response.status) === 200) {
                       const res = await response.json();
-                      const userName = res.name + " " + res.lastName
                       const token = res.TOKEN
                       nookies.set(null, 'USER_TOKEN', token, {
                         'path': '/',

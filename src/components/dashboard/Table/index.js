@@ -3,12 +3,16 @@ import { TableHeader } from "./TableHeader";
 import { TableContent } from "./TableContent";
 import TableLI from "./TableLI";
 
-export default function Table() {
+export default function Table({ items }) {
   return (
-    <div style={{padding: 20}}>
+    <div style={{ padding: 20 }}>
       <TableHeader />
       <TableContent>
-        <TableLI name="Nome" date="28 de jul, 2019" />
+        {items.map((item) => {
+          return (
+            <TableLI key={item.__id} name={item.name} date={item.created} />
+          );
+        })}
       </TableContent>
     </div>
   );

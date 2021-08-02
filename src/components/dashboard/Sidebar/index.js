@@ -1,6 +1,8 @@
 import React from "react";
 import { useRouter } from "next/router";
 
+import nookies from 'nookies';
+
 // icons
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -35,7 +37,7 @@ export function Sidebar() {
               name="Produtos"
             />
             <SidebarMenuItem
-              goTo="/dashboard/seeSells"
+              goTo="/dashboard/sells"
               icon={faBarcode}
               name="Ver vendas"
             />
@@ -50,6 +52,7 @@ export function Sidebar() {
         <a
           onClick={(event) => {
             event.preventDefault();
+            nookies.destroy(null, 'USER_TOKEN')
             router.push("/");
           }}
           className="sign-out-btn"

@@ -1,6 +1,13 @@
-import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken";
 
 export default async function Verify(req, res) {
-  const verify = jwt.verify(req.headers.Authorization, process.env.JWT_KEY)
-  console.log(verify);
+  try {
+    jwt.verify(req.headers.authorization, process.env.JWT_KEY);
+    res.status(200).json({ isAuthorized: true });
+    return true
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ isAuthorized: false });
+    return false
+  }
 }
