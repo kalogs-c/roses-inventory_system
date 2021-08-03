@@ -15,10 +15,6 @@ export default function ContentHeader(props) {
       <Header>
         <div style={{ display: "flex", gap: 30, alignItems: "center" }}>
           <h2>{props.title}</h2>
-          <div className="searchDiv">
-            <FontAwesomeIcon icon={faSearch} />
-            <input placeholder="Pesquisar" />
-          </div>
         </div>
         <div className="addDiv">
           <span>{props.registers} Registros</span>

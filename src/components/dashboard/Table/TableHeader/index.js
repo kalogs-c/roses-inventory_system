@@ -24,7 +24,6 @@ export function TableHeader() {
   return (
     <Header>
       <div>
-        <input type="checkbox" defaultChecked={false} />
         <a>Nome</a>
       </div>
       <a>Ultima atualização</a>

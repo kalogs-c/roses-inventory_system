@@ -28,8 +28,7 @@ export default function Dashboard(props) {
           <div className="cards">
             <Card amount="28" name="Produtos" icon={faGem} />
             <Card amount="21" name="Vendas" icon={faCashRegister} />
-            <Card amount="R$4500" name="Entrada" icon={faPiggyBank} />
-            <Card amount="R$370000" name="Saldo" icon={faGoogleWallet} />
+            <Card amount="R$370000" name="Entrada" icon={faPiggyBank} />
           </div>
           <div
             style={{

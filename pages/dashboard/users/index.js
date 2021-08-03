@@ -23,7 +23,7 @@ export default function viewUsers(props) {
       setUsers(data.users);
       setLoading(false);
     });
-  }, []);
+  }, [users]);
 
   return (
     <>
@@ -33,22 +33,21 @@ export default function viewUsers(props) {
         <div className="main-content">
           <DashboardHeader userName={props.userName} />
           <main>
-            {loading === true ? (
-              <LoadingScreen />
-            ) : (
-              <>
-                <ContentHeader
-                  title="Usuarios"
-                  reference="users"
-                  registers={users.length}
-                />
+            <>
+              <ContentHeader
+                title="Usuarios"
+                reference="users"
+                registers={users.length}
+              />
+              {loading === true ? (
+                <LoadingScreen />
+              ) : (
                 <div style={{ padding: 20 }}>
                   <TableHeader />
                   <TableContent>
                     {users.map((item) => {
                       return (
                         <Li key={item._id}>
-                          <input type="checkbox" />
                           <a href={`users/${item._id}`}>
                             <p>{`${item.name} ${item.lastName}`}</p>
                             <p>{item.created}</p>
@@ -58,8 +57,8 @@ export default function viewUsers(props) {
                     })}
                   </TableContent>
                 </div>
-              </>
-            )}
+              )}
+            </>
           </main>
         </div>
       </DashboardContentBox>

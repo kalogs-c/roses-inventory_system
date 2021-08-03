@@ -111,7 +111,7 @@ const DashboardContentBox = styled.main`
   main {
     padding: 1.5rem 0.75rem;
     height: 100%;
-
+    background-color: #f5f5f5;
     .cards {
       display: flex;
       gap: 0.5rem;
