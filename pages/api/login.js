@@ -16,7 +16,7 @@ export default async (req, res) => {
     };
 
     const TOKEN = await jwt.sign(response, process.env.JWT_KEY, {
-      expiresIn: 60 * 60,
+      expiresIn: '24h',
     });
 
     const comparePassword = await compare(req.body.password, response.password);

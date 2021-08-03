@@ -9,21 +9,25 @@ import { DashboardHeader } from "../../../src/components/dashboard/DashboardHead
 import DashboardContentBox from "../../../src/components/dashboard/DashboardContentBox";
 import ContentHeader from "../../../src/components/dashboard/ContentHeader";
 import { TableContent } from "../../../src/components/dashboard/Table/TableContent";
-import { TableHeader } from "../../../src/components/dashboard/Table/TableHeader";
+import { Header } from "../../../src/components/dashboard/Table/TableHeader";
 import { Li } from "../../../src/components/dashboard/Table/TableLI";
 import LoadingScreen from "../../../src/components/LoadingScreen";
 
-export default function viewUsers(props) {
-  const [users, setUsers] = useState([]);
+export default function viewProducts(props) {
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("../../api/users/getProductsList").then(async (response) => {
+    fetch("../../api/products/getProductsList", {
+      headers: {
+        authorization: props.token,
+      },
+    }).then(async (response) => {
       const data = await response.json();
-      setUsers(data.users);
+      setProducts(data.products);
       setLoading(false);
     });
-  }, [users]);
+  }, []);
 
   return (
     <>
@@ -35,22 +39,39 @@ export default function viewUsers(props) {
           <main>
             <>
               <ContentHeader
-                title="Usuarios"
-                reference="users"
-                registers={users.length}
+                title="Produtos"
+                reference="products"
+                registers={products.length}
               />
               {loading === true ? (
                 <LoadingScreen />
               ) : (
                 <div style={{ padding: 20 }}>
-                  <TableHeader />
+                  <Header>
+                    <div>
+                      <a>Quantidade</a>
+                      <a>Nome</a>
+                    </div>
+                    <div style={{ display: "flex", gap: 30 }}>
+                      <a>Ultima atualização</a>
+                      <a>Preço</a>
+                    </div>
+                  </Header>
                   <TableContent>
-                    {users.map((item) => {
+                    {products.map((item) => {
                       return (
                         <Li key={item._id}>
-                          <a href={`users/${item._id}`}>
-                            <p>{`${item.name} ${item.lastName}`}</p>
-                            <p>{item.created}</p>
+                          <a href={`products/${item._id}`}>
+                            <div style={{ display: "flex", gap: 20 }}>
+                              <p style={{ width: 60, textAlign: "center" }}>
+                                {item.quantity}
+                              </p>
+                              <p>{item.name}</p>
+                            </div>
+                            <div style={{ display: "flex", gap: 20 }}>
+                              <p>{item.created}</p>
+                              <p>R$ {item.price.$numberDecimal}</p>
+                            </div>
                           </a>
                         </Li>
                       );
@@ -95,6 +116,7 @@ export async function getServerSideProps(ctx) {
   return {
     props: {
       userName,
+      token: cookie.USER_TOKEN,
     },
   };
 }

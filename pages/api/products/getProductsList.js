@@ -7,13 +7,13 @@ export default async (req, res) => {
   try {
     jwt.verify(req.headers.authorization, process.env.JWT_KEY);
     const { cachedDb } = await connect();
-    const userList = [];
+    const productsList = [];
 
     await cachedDb
-      .collection("users")
+      .collection("products")
       .find()
-      .forEach((item) => userList.push(item));
-    res.status(200).json({ users: userList });
+      .forEach((item) => productsList.push(item));
+    res.status(200).json({ products: productsList });
     return true;
   } catch (error) {
     console.log(error);

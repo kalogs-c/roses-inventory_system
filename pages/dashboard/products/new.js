@@ -1,47 +1,33 @@
-import styled from "styled-components";
-
 import { useRouter } from "next/router";
+import { useState } from "react";
+
 import nookies from "nookies";
 import jwt from "jsonwebtoken";
 
+// Components
 import { Sidebar } from "../../../src/components/dashboard/Sidebar";
 import { DashboardHeader } from "../../../src/components/dashboard/DashboardHeader";
 import DashboardContentBox from "../../../src/components/dashboard/DashboardContentBox";
+import AddItemDataField from "../../../src/components/dashboard/AddItemDataField";
+import {
+  Header,
+  Button,
+  Form,
+  Message,
+} from "./../../../src/components/new/styles";
+import LoadingScreen from "../../../src/components/LoadingScreen";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 library.add();
 
-const Header = styled.header`
-  display: flex;
-  position: relative;
-  justify-content: space-between;
-  border: 1px solid #f0f0f0;
-  background-color: #fff;
-  flex-shrink: 0;
-`;
-
-const Button = styled.button`
-  padding: 7px 15px;
-  background-color: #02ccf1;
-  border: none;
-  border-radius: 7px;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-
-  &:hover {
-    opacity: 0.7;
-  }
-`;
-
 export default function AddItem(props) {
+  const [createdUser, setCreatedUser] = useState(false);
+  const [errorCreate, setErrorCreate] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const id = router.query.id;
+
   return (
     <DashboardContentBox style={{ maxHeight: "100vh", overflow: "hidden" }}>
       <Sidebar />
@@ -49,42 +35,122 @@ export default function AddItem(props) {
       <div className="main-content">
         <DashboardHeader userName={props.userName} />
         <main>
-          <Header>
-            <button
-              style={{
-                fontSize: "1.5rem",
-                padding: "0 15px",
-                cursor: "pointer",
-                border: "none",
-                borderRight: "1px solid #f0f0f0",
-                background: "none",
-              }}
-            >
-              <FontAwesomeIcon icon={faAngleLeft} />
-            </button>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "10px 15px",
-                width: "100%",
-              }}
-            >
-              <h2>Adicionar item</h2>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  gap: 10,
+          {loading === true ? (
+            <LoadingScreen />
+          ) : (
+            <>
+              <Header>
+                <button
+                  style={{
+                    fontSize: "1.5rem",
+                    padding: "0 15px",
+                    cursor: "pointer",
+                    border: "none",
+                    borderRight: "1px solid #f0f0f0",
+                    background: "none",
+                  }}
+                  onClick={() => {
+                    router.back();
+                  }}
+                >
+                  <FontAwesomeIcon icon={faAngleLeft} />
+                </button>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "10px 15px",
+                    width: "100%",
+                  }}
+                >
+                  <h2>Adicionar item</h2>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      gap: 10,
+                    }}
+                  >
+                    <span>Novo registro</span>
+                    <Button htmlFor="submitButton">Registrar</Button>
+                  </div>
+                </div>
+              </Header>
+              {createdUser ? (
+                <Message>
+                  <p className="positive">Sucesso! Usuario criado com êxito</p>
+                  <button
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setCreatedUser(false);
+                    }}
+                  >
+                    OK
+                  </button>
+                </Message>
+              ) : null}
+              {errorCreate ? (
+                <Message>
+                  <p className="negative">Ops! Erro: {errorCreate}</p>
+                  <button
+                    className="negative-button"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setErrorCreate(null);
+                    }}
+                  >
+                    OK
+                  </button>
+                </Message>
+              ) : null}
+              <Form
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  setLoading(true);
+                  setCreatedUser(false);
+                  setErrorCreate("");
+                  const dataForm = new FormData(event.target);
+                  const userData = {
+                    name: dataForm.get("name"),
+                    lastName: dataForm.get("lastName"),
+                    login: dataForm.get("login"),
+                    password: dataForm.get("password"),
+                    createdBy: props.userName,
+                  };
+
+                  fetch("../../api/users/createUser", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(userData),
+                  }).then(async (response) => {
+                    if ((await response.status) === 200) {
+                      setCreatedUser(true);
+                      setLoading(false);
+                      return;
+                    }
+                    const jsonResponse = await response.json();
+                    setErrorCreate(jsonResponse.message);
+                    setLoading(false);
+                  });
                 }}
               >
-                <span>Novo registro</span>
-                <Button>Registrar</Button>
-              </div>
-            </div>
-          </Header>
+                <AddItemDataField name="Nome" dataName="name" type="text" />
+                <AddItemDataField
+                  name="Preço"
+                  dataName="price"
+                  type="text"
+                />
+                <AddItemDataField name="Quantidade" dataName="quantity" type="text" />
+                <button
+                  type="submit"
+                  style={{ display: "none" }}
+                  id="submitButton"
+                ></button>
+              </Form>
+            </>
+          )}
         </main>
       </div>
     </DashboardContentBox>
