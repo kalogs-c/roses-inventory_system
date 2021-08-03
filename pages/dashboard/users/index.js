@@ -23,7 +23,7 @@ export default function viewUsers(props) {
       setUsers(data.users);
       setLoading(false);
     });
-  }, [users]);
+  }, []);
 
   return (
     <>
