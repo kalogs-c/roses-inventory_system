@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Header = styled.div`
+export const Header = styled.div`
   background-color: transparent;
   font-size: 14px;
   font-size: 0.875rem;
@@ -24,9 +24,13 @@ export function TableHeader() {
   return (
     <Header>
       <div>
+        <a>Quantidade</a>
         <a>Nome</a>
       </div>
-      <a>Ultima atualização</a>
+      <div>
+        <a>Ultima atualização</a>
+        <a>Preço</a>
+      </div>
     </Header>
   );
 }

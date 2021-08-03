@@ -18,7 +18,11 @@ export default function viewUsers(props) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("../../api/users/getUsersList").then(async (response) => {
+    fetch("../../api/users/getUsersList", {
+      headers: {
+        authorization: props.token
+      }
+    }).then(async (response) => {
       const data = await response.json();
       setUsers(data.users);
       setLoading(false);
@@ -71,7 +75,7 @@ export async function getServerSideProps(ctx) {
   const decodedCookie = jwt.decode(cookie.USER_TOKEN);
 
   const { isAuthorized } = await fetch(
-    "https://balur.vercel.app/api/authentication",
+    `${process.env.API_URL}/api/authentication`,
     {
       method: "POST",
       headers: {
@@ -95,6 +99,7 @@ export async function getServerSideProps(ctx) {
   return {
     props: {
       userName,
+      token: cookie.USER_TOKEN
     },
   };
 }

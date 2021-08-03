@@ -24,12 +24,12 @@ library.add();
 export default function Edit(props) {
   const router = useRouter();
   const id = router.query.id;
-  const [user, setUser] = useState({});
-  const [deletedUser, setDeletedUser] = useState(false);
+  const [product, setProduct] = useState({});
+  const [deletedProduct, setDeletedProduct] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(async () => {
-    await fetch("./../../../api/users/getUser", {
+    await fetch("./../../../api/products/getProduct", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,8 +37,8 @@ export default function Edit(props) {
       body: JSON.stringify({ id: id }),
     }).then(async (response) => {
       const data = await response.json();
-      setUser(data.user);
-      console.log(data.user);
+      setProduct(data.product);
+      console.log(data.product);
       setLoading(false);
     });
   }, []);
@@ -80,7 +80,7 @@ export default function Edit(props) {
                       width: "100%",
                     }}
                   >
-                    <h2>Ver usuario</h2>
+                    <h2>Ver produto</h2>
                     <div
                       style={{
                         display: "flex",
@@ -89,36 +89,34 @@ export default function Edit(props) {
                         gap: 10,
                       }}
                     >
-                      {props._id !== id ? (
-                        <DeleteButton
-                          onClick={(event) => {
-                            event.preventDefault();
-                            setDeletedUser(true);
-                          }}
-                        >
-                          Deletar
-                        </DeleteButton>
-                      ) : <span>Usuario atual</span>}
+                      <DeleteButton
+                        onClick={(event) => {
+                          event.preventDefault();
+                          setDeletedProduct(true);
+                        }}
+                      >
+                        Deletar
+                      </DeleteButton>
                     </div>
                   </div>
                 </Header>
-                {deletedUser ? (
+                {deletedProduct ? (
                   <Message>
-                    <p className="negative">Atenção! O usuario será deletado</p>
+                    <p className="negative">Atenção! O produto será deletado</p>
                     <button
                       className="negative-button"
                       onClick={async (event) => {
                         event.preventDefault();
                         setLoading(true);
 
-                        await fetch("./../../../api/users/deleteUser", {
+                        await fetch("./../../../api/products/deleteProduct", {
                           method: "POST",
                           headers: {
                             "Content-Type": "application/json",
                           },
                           body: JSON.stringify({ id: id }),
                         }).then(async () => {
-                          router.push('/dashboard/users');
+                          router.push("/dashboard/products");
                         });
                       }}
                     >
@@ -134,7 +132,7 @@ export default function Edit(props) {
                         width: "100%",
                       }}
                     >
-                      Dados do usuário
+                      Dados do produto
                     </div>
                   </Header>
                   <div
@@ -152,9 +150,9 @@ export default function Edit(props) {
                         padding: 10,
                       }}
                     >
-                      <span>Nome: {user.name}</span>
-                      <span>Sobrenome: {user.lastName}</span>
-                      <span>Login: {user.login}</span>
+                      <span>Nome: {product.name}</span>
+                      <span>Quantidade: {product.quantity}</span>
+                      <span>Preço: R$ {product.price.$numberDecimal}</span>
                     </div>
                     <div
                       style={{
@@ -165,8 +163,8 @@ export default function Edit(props) {
                         borderLeft: "1px solid #f0f0f0",
                       }}
                     >
-                      <span>Criado por: {user.createdBy}</span>
-                      <span>Criado em: {user.created}</span>
+                      <span>Criado por: {product.createdBy}</span>
+                      <span>Criado em: {product.created}</span>
                     </div>
                   </div>
                 </SideCamp>
