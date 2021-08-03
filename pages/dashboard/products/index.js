@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import nookies from "nookies";
 import jwt from "jsonwebtoken";
 
@@ -6,9 +8,23 @@ import { Sidebar } from "../../../src/components/dashboard/Sidebar";
 import { DashboardHeader } from "../../../src/components/dashboard/DashboardHeader";
 import DashboardContentBox from "../../../src/components/dashboard/DashboardContentBox";
 import ContentHeader from "../../../src/components/dashboard/ContentHeader";
-import Table from "../../../src/components/dashboard/Table";
+import { TableContent } from "../../../src/components/dashboard/Table/TableContent";
+import { TableHeader } from "../../../src/components/dashboard/Table/TableHeader";
+import { Li } from "../../../src/components/dashboard/Table/TableLI";
+import LoadingScreen from "../../../src/components/LoadingScreen";
 
-export default function viewProducts(props) {
+export default function viewUsers(props) {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("../../api/users/getProductsList").then(async (response) => {
+      const data = await response.json();
+      setUsers(data.users);
+      setLoading(false);
+    });
+  }, [users]);
+
   return (
     <>
       <DashboardContentBox>
@@ -17,8 +33,32 @@ export default function viewProducts(props) {
         <div className="main-content">
           <DashboardHeader userName={props.userName} />
           <main>
-            <ContentHeader title="Produtos" reference="products" />
-            <Table />
+            <>
+              <ContentHeader
+                title="Usuarios"
+                reference="users"
+                registers={users.length}
+              />
+              {loading === true ? (
+                <LoadingScreen />
+              ) : (
+                <div style={{ padding: 20 }}>
+                  <TableHeader />
+                  <TableContent>
+                    {users.map((item) => {
+                      return (
+                        <Li key={item._id}>
+                          <a href={`users/${item._id}`}>
+                            <p>{`${item.name} ${item.lastName}`}</p>
+                            <p>{item.created}</p>
+                          </a>
+                        </Li>
+                      );
+                    })}
+                  </TableContent>
+                </div>
+              )}
+            </>
           </main>
         </div>
       </DashboardContentBox>

@@ -18,12 +18,16 @@ export default function viewUsers(props) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("../../api/users/getUsersList").then(async (response) => {
+    fetch("../../api/users/getUsersList", {
+      headers: {
+        authorization: props.token
+      }
+    }).then(async (response) => {
       const data = await response.json();
       setUsers(data.users);
       setLoading(false);
     });
-  }, [users]);
+  }, []);
 
   return (
     <>
@@ -95,6 +99,7 @@ export async function getServerSideProps(ctx) {
   return {
     props: {
       userName,
+      token: cookie.USER_TOKEN
     },
   };
 }
