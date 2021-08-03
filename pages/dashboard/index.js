@@ -72,7 +72,7 @@ export async function getServerSideProps(ctx) {
   const decodedCookie = jwt.decode(cookie.USER_TOKEN);
   
   const { isAuthorized } = await fetch(
-    "http://localhost:3000/api/authentication",
+    `${process.env.API_URL}/api/authentication`,
     {
       method: "POST", 
       headers: {
