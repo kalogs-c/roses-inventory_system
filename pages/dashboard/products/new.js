@@ -22,11 +22,11 @@ import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 library.add();
 
-export default function AddItem(props) {
-  const [createdUser, setCreatedUser] = useState(false);
+export default function Edit(props) {
+  const router = useRouter();
+  const [createdProduct, setCreatedProduct] = useState(false);
   const [errorCreate, setErrorCreate] = useState("");
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   return (
     <DashboardContentBox style={{ maxHeight: "100vh", overflow: "hidden" }}>
@@ -78,9 +78,9 @@ export default function AddItem(props) {
                   </div>
                 </div>
               </Header>
-              {createdUser ? (
+              {createdProduct ? (
                 <Message>
-                  <p className="positive">Sucesso! Usuario criado com êxito</p>
+                  <p className="positive">Sucesso! Produto criado com êxito</p>
                   <button
                     onClick={(event) => {
                       event.preventDefault();
@@ -109,40 +109,51 @@ export default function AddItem(props) {
                 onSubmit={(event) => {
                   event.preventDefault();
                   setLoading(true);
-                  setCreatedUser(false);
+                  setCreatedProduct(false);
                   setErrorCreate("");
                   const dataForm = new FormData(event.target);
-                  const userData = {
+                  const productData = {
                     name: dataForm.get("name"),
-                    lastName: dataForm.get("lastName"),
-                    login: dataForm.get("login"),
-                    password: dataForm.get("password"),
+                    price: dataForm.get("price"),
+                    quantity: dataForm.get("quantity"),
                     createdBy: props.userName,
                   };
 
-                  fetch("../../api/users/createUser", {
+                  fetch("../../api/products/createProduct", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(userData),
+                    body: JSON.stringify(productData),
                   }).then(async (response) => {
                     if ((await response.status) === 200) {
-                      setCreatedUser(true);
+                      setCreatedProduct(false);
                       setLoading(false);
+                      router.push("/dashboard/products");
                       return;
                     }
                     const jsonResponse = await response.json();
-                    setErrorCreate(jsonResponse.message);
+                    setErrorEdit(jsonResponse.message);
                     setLoading(false);
                   });
                 }}
               >
-                <AddItemDataField name="Nome" dataName="name" type="text" />
+                <AddItemDataField
+                  name="Nome"
+                  required={false}
+                  dataName="name"
+                  type="text"
+                />
                 <AddItemDataField
                   name="Preço"
+                  required={false}
                   dataName="price"
                   type="text"
                 />
-                <AddItemDataField name="Quantidade" dataName="quantity" type="text" />
+                <AddItemDataField
+                  name="Quantidade"
+                  dataName="quantity"
+                  required={false}
+                  type="text"
+                />
                 <button
                   type="submit"
                   style={{ display: "none" }}
@@ -156,7 +167,6 @@ export default function AddItem(props) {
     </DashboardContentBox>
   );
 }
-
 export async function getServerSideProps(ctx) {
   const cookie = nookies.get(ctx);
   const decodedCookie = jwt.decode(cookie.USER_TOKEN);
@@ -181,11 +191,12 @@ export async function getServerSideProps(ctx) {
     };
   }
 
-  const { name, lastName } = decodedCookie;
+  const { name, lastName, _id } = decodedCookie;
   const userName = name + " " + lastName;
   return {
     props: {
       userName,
+      _id,
     },
   };
 }

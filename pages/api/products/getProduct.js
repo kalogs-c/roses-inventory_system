@@ -8,7 +8,6 @@ export default async (req, res) => {
     const product = await cachedDb
       .collection("products")
       .findOne({ _id: ObjectId(req.body.id) });
-    console.log(`ObjectId("${req.body.id}")`);
 
     res.status(200).json({ product: product });
     return;

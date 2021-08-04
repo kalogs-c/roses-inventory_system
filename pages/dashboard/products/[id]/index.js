@@ -12,7 +12,9 @@ import {
   Button,
   DeleteButton,
   Message,
+  Form,
 } from "../../../../src/components/new/styles";
+import AddItemDataField from "../../../../src/components/dashboard/AddItemDataField";
 import { SideCamp } from "../../../../src/components/edit/styles";
 import LoadingScreen from "../../../../src/components/LoadingScreen";
 
@@ -26,6 +28,8 @@ export default function Edit(props) {
   const id = router.query.id;
   const [product, setProduct] = useState({});
   const [deletedProduct, setDeletedProduct] = useState(false);
+  const [editedProduct, setEditedProduct] = useState(false);
+  const [errorEdit, setErrorEdit] = useState('');
   const [loading, setLoading] = useState(true);
 
   useEffect(async () => {
@@ -38,7 +42,6 @@ export default function Edit(props) {
     }).then(async (response) => {
       const data = await response.json();
       setProduct(data.product);
-      console.log(data.product);
       setLoading(false);
     });
   }, []);
@@ -97,6 +100,14 @@ export default function Edit(props) {
                       >
                         Deletar
                       </DeleteButton>
+                      <Button
+                        onClick={(event) => {
+                          event.preventDefault();
+                          setEditedProduct(true);
+                        }}
+                      >
+                        Editar
+                      </Button>
                     </div>
                   </div>
                 </Header>
@@ -124,6 +135,90 @@ export default function Edit(props) {
                     </button>
                   </Message>
                 ) : null}
+                {editedProduct ? (
+                  <Message>
+                    <p className="negative">
+                      Atenção! Os dados serão sobrescritos
+                    </p>
+                    <Button
+                      className="negative-button"
+                      htmlFor="submitButton"
+                    >
+                      Ok e Editar
+                    </Button>
+                  </Message>
+                ) : null}
+                {errorEdit ? (
+                  <Message>
+                    <p className="negative">
+                      Erro: {errorEdit}
+                    </p>
+                    <Button
+                      className="negative-button"
+                      onClick={() => {
+                        setErrorEdit('')
+                      }}
+                    >
+                      OK
+                    </Button>
+                  </Message>
+                ) : null}
+                <Form
+                  onSubmit={(event) => {
+                    event.preventDefault();
+                    setLoading(true);
+                    setEditedProduct(false)
+                    setErrorEdit("");
+                    const dataForm = new FormData(event.target);
+                    const productData = {
+                      id: id,
+                      name: dataForm.get("name"),
+                      price: dataForm.get("price"),
+                      quantity: dataForm.get("quantity"),
+                      createdBy: props.userName,
+                    };
+                    
+                    fetch("../../api/products/editProduct", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify(productData),
+                    }).then(async (response) => {
+                      if ((await response.status) === 200) {
+                        setEditedProduct(false);
+                        setLoading(false);
+                        router.push('/dashboard/products')
+                        return;
+                      }
+                      const jsonResponse = await response.json();
+                      setErrorEdit(jsonResponse.message);
+                      setLoading(false);
+                    });
+                  }}
+                >
+                  <AddItemDataField
+                    name="Nome"
+                    required={false}
+                    dataName="name"
+                    type="text"
+                  />
+                  <AddItemDataField
+                    name="Preço"
+                    required={false}
+                    dataName="price"
+                    type="text"
+                  />
+                  <AddItemDataField
+                    name="Quantidade"
+                    dataName="quantity"
+                    required={false}
+                    type="text"
+                  />
+                  <button
+                    type="submit"
+                    style={{ display: "none" }}
+                    id="submitButton"
+                  ></button>
+                </Form>
                 <SideCamp>
                   <Header>
                     <div
