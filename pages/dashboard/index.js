@@ -87,7 +87,7 @@ export async function getServerSideProps(ctx) {
   const decodedCookie = jwt.decode(cookie.USER_TOKEN);
 
   const { isAuthorized } = await fetch(
-    `${process.env.API_URL}/api/authentication`,
+    "https://balur-psi.vercel.app/api/authentication",
     {
       method: "POST",
       headers: {
@@ -107,7 +107,7 @@ export async function getServerSideProps(ctx) {
   }
 
   const productsList = await fetch(
-    `${process.env.API_URL}/api/products/getProductsList`,
+    "https://balur-psi.vercel.app/api/products/getProductsList",
     {
       headers: {
         authorization: cookie.USER_TOKEN,
@@ -123,7 +123,7 @@ export async function getServerSideProps(ctx) {
   });
 
   const sellsList = await fetch(
-    `${process.env.API_URL}/api/sells/getSellsList`,
+    "https://balur-psi.vercel.app/api/sells/getSellsList",
     {
       headers: {
         authorization: cookie.USER_TOKEN,

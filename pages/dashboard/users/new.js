@@ -167,7 +167,7 @@ export async function getServerSideProps(ctx) {
   const decodedCookie = jwt.decode(cookie.USER_TOKEN);
 
   const { isAuthorized } = await fetch(
-    `${process.env.API_URL}/api/authentication`,
+    "https://balur-psi.vercel.app/api/authentication",
     {
       method: "POST",
       headers: {
