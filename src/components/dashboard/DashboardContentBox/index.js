@@ -125,6 +125,12 @@ const DashboardContentBox = styled.main`
         width: 100%;
         padding: 2rem;
         border-radius: 7px;
+        cursor: pointer;
+        transition: all 300ms ease-in-out;
+
+        &:hover {
+          transform: scale(1.02, 1.02);
+        }
 
         span {
           color: #777;

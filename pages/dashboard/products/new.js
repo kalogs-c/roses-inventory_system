@@ -84,7 +84,7 @@ export default function Edit(props) {
                   <button
                     onClick={(event) => {
                       event.preventDefault();
-                      setCreatedUser(false);
+                      setCreatedProduct(false);
                     }}
                   >
                     OK

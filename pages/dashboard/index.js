@@ -23,12 +23,27 @@ export default function Dashboard(props) {
       <Sidebar />
 
       <div className="main-content">
-        <DashboardHeader userName={props.userName}/>
+        <DashboardHeader userName={props.userName} />
         <main>
           <div className="cards">
-            <Card amount="28" name="Produtos" icon={faGem} />
-            <Card amount="21" name="Vendas" icon={faCashRegister} />
-            <Card amount="R$370000" name="Entrada" icon={faPiggyBank} />
+            <Card
+              amount={props.productsLength}
+              name="Estoque"
+              icon={faGem}
+              goTo="/dashboard/products"
+            />
+            <Card
+              amount={props.sellsLength}
+              name="Vendas"
+              icon={faCashRegister}
+              goTo="/dashboard/sells"
+            />
+            <Card
+              amount={`R$ ${props.amount}`}
+              name="Entrada"
+              icon={faPiggyBank}
+              goTo="/dashboard/sells"
+            />
           </div>
           <div
             style={{
@@ -70,32 +85,69 @@ export default function Dashboard(props) {
 export async function getServerSideProps(ctx) {
   const cookie = nookies.get(ctx);
   const decodedCookie = jwt.decode(cookie.USER_TOKEN);
-  
+
   const { isAuthorized } = await fetch(
     `${process.env.API_URL}/api/authentication`,
     {
-      method: "POST", 
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: cookie.USER_TOKEN,
       },
     }
-    ).then((res) => res.json());
-    
-    if (!isAuthorized) {
-      return {
-        redirect: {
-          destination: "/",
-          permanent: false,
-        },
-      };
-    }
-    
-    const { name, lastName } = decodedCookie;
-    const userName = name + " " + lastName;
+  ).then((res) => res.json());
+
+  if (!isAuthorized) {
     return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  const productsList = await fetch(
+    `${process.env.API_URL}/api/products/getProductsList`,
+    {
+      headers: {
+        authorization: cookie.USER_TOKEN,
+      },
+    }
+  ).then(async (response) => {
+    const data = await response.json();
+    const products = data.products;
+    return products.reduce(
+      (accumulator, currentValue) => accumulator + currentValue.quantity,
+      0
+    );
+  });
+
+  const sellsList = await fetch(
+    `${process.env.API_URL}/api/sells/getSellsList`,
+    {
+      headers: {
+        authorization: cookie.USER_TOKEN,
+      },
+    }
+  ).then(async (response) => {
+    const data = await response.json();
+    return data.sells;
+  });
+
+  const amount = sellsList.reduce(
+    (accumulator, currentValue) =>
+      accumulator + Number(currentValue.value.$numberDecimal),
+    0
+  );
+
+  const { name, lastName } = decodedCookie;
+  const userName = name + " " + lastName;
+  return {
     props: {
       userName,
+      productsLength: productsList,
+      sellsLength: sellsList.length,
+      amount,
     },
   };
 }

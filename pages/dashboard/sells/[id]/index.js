@@ -12,9 +12,7 @@ import {
   Button,
   DeleteButton,
   Message,
-  Form,
 } from "../../../../src/components/new/styles";
-import AddItemDataField from "../../../../src/components/dashboard/AddItemDataField";
 import { SideCamp } from "../../../../src/components/edit/styles";
 import LoadingScreen from "../../../../src/components/LoadingScreen";
 
@@ -26,14 +24,12 @@ library.add();
 export default function Edit(props) {
   const router = useRouter();
   const id = router.query.id;
-  const [product, setProduct] = useState({});
-  const [deletedProduct, setDeletedProduct] = useState(false);
-  const [editedProduct, setEditedProduct] = useState(false);
-  const [errorEdit, setErrorEdit] = useState('');
+  const [sell, setSell] = useState({});
+  const [deletedSell, setDeletedSell] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(async () => {
-    await fetch("./../../../api/products/getProduct", {
+    await fetch("./../../../api/sells/getSell", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +37,7 @@ export default function Edit(props) {
       body: JSON.stringify({ id: id }),
     }).then(async (response) => {
       const data = await response.json();
-      setProduct(data.product);
+      setSell(data.sell);
       setLoading(false);
     });
   }, []);
@@ -83,7 +79,7 @@ export default function Edit(props) {
                       width: "100%",
                     }}
                   >
-                    <h2>Ver produto</h2>
+                    <h2>Ver venda</h2>
                     <div
                       style={{
                         display: "flex",
@@ -95,39 +91,31 @@ export default function Edit(props) {
                       <DeleteButton
                         onClick={(event) => {
                           event.preventDefault();
-                          setDeletedProduct(true);
+                          setDeletedSell(true);
                         }}
                       >
                         Deletar
                       </DeleteButton>
-                      <Button
-                        onClick={(event) => {
-                          event.preventDefault();
-                          setEditedProduct(true);
-                        }}
-                      >
-                        Editar
-                      </Button>
                     </div>
                   </div>
                 </Header>
-                {deletedProduct ? (
+                {deletedSell ? (
                   <Message>
-                    <p className="negative">Atenção! O produto será deletado</p>
+                    <p className="negative">Atenção! A venda será deletada</p>
                     <button
                       className="negative-button"
                       onClick={async (event) => {
                         event.preventDefault();
                         setLoading(true);
 
-                        await fetch("./../../../api/products/deleteProduct", {
+                        await fetch("./../../../api/sells/deleteSell", {
                           method: "POST",
                           headers: {
                             "Content-Type": "application/json",
                           },
                           body: JSON.stringify({ id: id }),
                         }).then(async () => {
-                          router.push("/dashboard/products");
+                          router.push("/dashboard/sells");
                         });
                       }}
                     >
@@ -135,90 +123,6 @@ export default function Edit(props) {
                     </button>
                   </Message>
                 ) : null}
-                {editedProduct ? (
-                  <Message>
-                    <p className="negative">
-                      Atenção! Os dados serão sobrescritos
-                    </p>
-                    <Button
-                      className="negative-button"
-                      htmlFor="submitButton"
-                    >
-                      Ok e Editar
-                    </Button>
-                  </Message>
-                ) : null}
-                {errorEdit ? (
-                  <Message>
-                    <p className="negative">
-                      Erro: {errorEdit}
-                    </p>
-                    <Button
-                      className="negative-button"
-                      onClick={() => {
-                        setErrorEdit('')
-                      }}
-                    >
-                      OK
-                    </Button>
-                  </Message>
-                ) : null}
-                <Form
-                  onSubmit={(event) => {
-                    event.preventDefault();
-                    setLoading(true);
-                    setEditedProduct(false)
-                    setErrorEdit("");
-                    const dataForm = new FormData(event.target);
-                    const productData = {
-                      id: id,
-                      name: dataForm.get("name"),
-                      price: dataForm.get("price"),
-                      quantity: dataForm.get("quantity"),
-                      createdBy: props.userName,
-                    };
-                    
-                    fetch("../../api/products/editProduct", {
-                      method: "POST",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify(productData),
-                    }).then(async (response) => {
-                      if ((await response.status) === 200) {
-                        setEditedProduct(false);
-                        setLoading(false);
-                        router.push('/dashboard/products')
-                        return;
-                      }
-                      const jsonResponse = await response.json();
-                      setErrorEdit(jsonResponse.message);
-                      setLoading(false);
-                    });
-                  }}
-                >
-                  <AddItemDataField
-                    name="Nome"
-                    required={false}
-                    dataName="name"
-                    type="text"
-                  />
-                  <AddItemDataField
-                    name="Preço"
-                    required={false}
-                    dataName="price"
-                    type="text"
-                  />
-                  <AddItemDataField
-                    name="Quantidade"
-                    dataName="quantity"
-                    required={false}
-                    type="text"
-                  />
-                  <button
-                    type="submit"
-                    style={{ display: "none" }}
-                    id="submitButton"
-                  ></button>
-                </Form>
                 <SideCamp>
                   <Header>
                     <div
@@ -227,7 +131,7 @@ export default function Edit(props) {
                         width: "100%",
                       }}
                     >
-                      Dados do produto
+                      Dados da venda
                     </div>
                   </Header>
                   <div
@@ -245,10 +149,16 @@ export default function Edit(props) {
                         padding: 10,
                       }}
                     >
-                      <span>Id: {JSON.stringify(product._id)}</span>
-                      <span>Nome: {product.name}</span>
-                      <span>Quantidade: {product.quantity}</span>
-                      <span>Preço: R$ {product.price.$numberDecimal}</span>
+                      <span>Id: {JSON.stringify(sell._id)}</span>
+                      <span>Nome: {sell.name}</span>
+                      <span>Quantidade: {sell.quantity}</span>
+                      <span>
+                        Preço unitário: R${" "}
+                        {sell.value.$numberDecimal / sell.quantity}
+                      </span>
+                      <span>
+                        Valor da venda: R$ {sell.value.$numberDecimal}
+                      </span>
                     </div>
                     <div
                       style={{
@@ -259,8 +169,8 @@ export default function Edit(props) {
                         borderLeft: "1px solid #f0f0f0",
                       }}
                     >
-                      <span>Criado por: {product.createdBy}</span>
-                      <span>Criado em: {product.created}</span>
+                      <span>Feita por: {sell.createdBy}</span>
+                      <span>Feita em: {sell.created}</span>
                     </div>
                   </div>
                 </SideCamp>

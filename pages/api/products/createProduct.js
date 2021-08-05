@@ -1,5 +1,5 @@
 import connect from "../../../utils/database";
-import { ObjectId, Decimal128, Int32 } from "mongodb";
+import { Decimal128, Int32 } from "mongodb";
 
 export default async (req, res) => {
   if (req.method === "POST") {
