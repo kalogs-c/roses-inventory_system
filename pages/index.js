@@ -18,8 +18,8 @@ export default function Home() {
         <Main>
           <img
             className="logo"
-            src="https://i.ibb.co/GkDhYF0/logo-nobg.png"
-            alt="Balur logo"
+            src="https://lh6.googleusercontent.com/h8xMXllHoqSiwfCxNPFVWnnw8B7_e03-VsbpVs8hxSy4vTba9tROLWc2wPN0I7eElsd9yg7kxrf4o26CHM63=w1366-h656-rw"
+            alt="Roses logo"
           />
           <div className="container">
             <h1>Login</h1>
@@ -76,7 +76,7 @@ export default function Home() {
               )}
             </div>
           </div>
-          <img className="wave" src="https://svgshare.com/i/ZHC.svg" title="" />
+          <img className="wave" src="./../static/wave.svg" title="" />
         </Main>
       ) : (
         <LoadingScreen />

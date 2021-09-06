@@ -31,9 +31,8 @@ const Main = styled.main`
     width: 100%;
     max-width: 400px;
     padding: 35px;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.15);
     border-radius: 25px;
-    background-color: #fff;
+    background-color: transparent;
 
     h1 {
       text-align: center;
@@ -69,7 +68,7 @@ const Main = styled.main`
         font-weight: bolder;
         cursor: pointer;
         letter-spacing: 1px;
-        background-color: #03cbef;
+        background-color: #A03D60;
         transition: 0.3s ease-in-out all;
 
         &:hover {
